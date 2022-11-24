@@ -10,6 +10,7 @@ app.use(express.static('public'))
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
+app.use(express.urlencoded({extended: true}))
 
 //ROUTES
 app.get('/', (req, res) => {
