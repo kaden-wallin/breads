@@ -40,6 +40,15 @@ breads.get('/:id', (req, res) => {
       })
 })
 
+// EDIT
+breads.get('/:id/edit', (req, res) => {
+  Bread.findById(req.params.id) 
+    .then(foundBread => { 
+      res.render('edit', {
+        bread: foundBread 
+      })
+    })
+})
 
 // CREATE
 breads.post('/', (req, res) => {
@@ -71,15 +80,7 @@ breads.put('/:id', (req, res) => {
 })
 
 
-// EDIT
-breads.get('/:id/edit', (req, res) => {
-  Bread.findById(req.params.id) 
-    .then(foundBread => { 
-      res.render('edit', {
-        bread: foundBread 
-      })
-    })
-})
+
 
 
 module.exports = breads
