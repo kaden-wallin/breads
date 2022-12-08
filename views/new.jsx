@@ -1,4 +1,5 @@
 const React = require('react')
+const baker_seed = require('../models/baker_seed')
 const Default = require('./layouts/Default')
 
 function New () {
@@ -28,13 +29,11 @@ function New () {
           />
           <label htmlFor="baker">Baker</label> 
           <select name="baker" id="baker">
-            <option value="Rachel">Rachel</option>
-            <option value="Monica">Monica</option>
-            <option value="Joey">Joey</option>
-            <option value="Chandler">Chandler</option>
-            <option value="Ross">Ross</option>
-            <option value="Phoebe">Phoebe</option>
-            <option value="Frank">Frank</option>
+            {bakers.map((baker) => {
+              return(
+                <option value={baker.id} key={baker.id}>{baker.name}</option>
+              )
+            })}
           </select>
           <br />
           <input type="submit"/>

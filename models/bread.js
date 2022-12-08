@@ -9,15 +9,31 @@ const breadSchema = new Schema({
   hasGluten: Boolean,
   image: { type: String, default: 'http://placehold.it/500x500.png' },
   baker: {
-    type: String,
-    enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe', 'Frank']
+    type: Schema.Types.ObjectID,
+    ref: 'Baker'
   }
 })
 
-breadSchema.methods.getBakedBy = function() {
-  return `${this.name} was baked with love by ${this.baker}`
+const bakerSchema = new Schema({
+  name: { type: String, required: true, enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe'] },
+  startDate: { type: Date, required: true },
+  bio: String
+})
+
+// helper methods 
+breadSchema.methods.getBakedBy = function(){
+  return `${this.name} was baked with love by ${this.baker.name}, who has been with us since ${this.baker.startDate.getFullYear()}`
+}
+
+
+breadSchema.static.getBakedBreads = function(baker) {
+  return this.find({baker: baker})
+  .then(foundBreads => {
+      
+  })
 }
 
 const Bread = mongoose.model('Bread', breadSchema)
-
+const Baker = mongoose.model('Baker', bakerSchema)
 module.exports = Bread
+module.exports = Baker
